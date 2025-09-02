@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.criminalintent.R
 import com.example.criminalintent.database.entity.Crime
-import com.example.criminalintent.fragment.CrimeAdapter.Callbacks
+import com.example.criminalintent.fragment.CrimeListAdapter.Callbacks
 import com.example.criminalintent.viewmodel.CrimeListViewmodel
 
 
@@ -30,6 +30,8 @@ class CrimeListFragment : Fragment() {
     private var param2: String? = null
     private lateinit var crimeRecyclerView: RecyclerView
     private var callback: Callbacks? = null
+
+    private var adapter: CrimeListAdapter = CrimeListAdapter(emptyList(), callback)
 
     private val crimeListViewmodel: CrimeListViewmodel by lazy {
         ViewModelProvider(this)[CrimeListViewmodel::class.java]
@@ -55,19 +57,23 @@ class CrimeListFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_list, container, false)
         crimeRecyclerView = view.findViewById(R.id.crime_recycler_view)
         crimeRecyclerView.layoutManager = LinearLayoutManager(context)
+        crimeRecyclerView.adapter = adapter
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        crimeListViewmodel.crimeList.observe(viewLifecycleOwner, {
-            Log.d(TAG, "receive crimes size = ${it.size}")
+        Log.d(TAG, "onViewCreated")
+        crimeListViewmodel.crimeListLiveData.observe(viewLifecycleOwner) {
+            Log.d(TAG, "crimeListLiveData notify crimes size = ${it.size}")
             updateUI(it)
-        })
+        }
     }
 
     private fun updateUI(crimes: List<Crime>) {
-        crimeRecyclerView.adapter = CrimeAdapter(crimes, callback)
+        adapter = CrimeListAdapter(crimes, callback)
+        adapter.submitList(crimes)
+        crimeRecyclerView.adapter = CrimeListAdapter(crimes, callback)
     }
 
     companion object {

@@ -8,17 +8,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.criminalintent.R
 import com.example.criminalintent.database.entity.Crime
 import java.util.Locale
 import java.util.UUID
 
-class CrimeAdapter(var crimes: List<Crime>, var callback: Callbacks? = null) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class CrimeListAdapter(var crimes: List<Crime>, var callback: Callbacks? = null) :
+    ListAdapter<Crime, RecyclerView.ViewHolder>(CrimeDiffCallback()) {
 
-    init {
-        Log.d(TAG, "init callback = $callback")
+    class CrimeDiffCallback : DiffUtil.ItemCallback<Crime>() {
+        override fun areItemsTheSame(oldItem: Crime, newItem: Crime): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: Crime, newItem: Crime): Boolean {
+            return oldItem == newItem
+        }
     }
 
     interface Callbacks {
