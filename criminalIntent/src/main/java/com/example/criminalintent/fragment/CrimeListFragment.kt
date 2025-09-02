@@ -1,5 +1,6 @@
 package com.example.criminalintent.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,7 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.criminalintent.R
-import com.example.criminalintent.database.Crime
+import com.example.criminalintent.database.entity.Crime
+import com.example.criminalintent.fragment.CrimeAdapter.Callbacks
 import com.example.criminalintent.viewmodel.CrimeListViewmodel
 
 
@@ -27,9 +29,15 @@ class CrimeListFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var crimeRecyclerView: RecyclerView
-    private var adapter = CrimeAdapter(emptyList())
+    private var callback: Callbacks? = null
+
     private val crimeListViewmodel: CrimeListViewmodel by lazy {
         ViewModelProvider(this)[CrimeListViewmodel::class.java]
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = context as? Callbacks
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +55,6 @@ class CrimeListFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_list, container, false)
         crimeRecyclerView = view.findViewById(R.id.crime_recycler_view)
         crimeRecyclerView.layoutManager = LinearLayoutManager(context)
-        crimeRecyclerView.adapter = adapter
         return view
     }
 
@@ -60,7 +67,7 @@ class CrimeListFragment : Fragment() {
     }
 
     private fun updateUI(crimes: List<Crime>) {
-        crimeRecyclerView.adapter = CrimeAdapter(crimes)
+        crimeRecyclerView.adapter = CrimeAdapter(crimes, callback)
     }
 
     companion object {

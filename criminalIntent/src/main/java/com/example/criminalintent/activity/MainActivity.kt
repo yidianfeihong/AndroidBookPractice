@@ -8,10 +8,12 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.criminalintent.R
 import com.example.criminalintent.databinding.ActivityMainBinding
-import com.example.criminalintent.fragment.CrimeFragment
+import com.example.criminalintent.fragment.CrimeAdapter
+import com.example.criminalintent.fragment.CrimeDetailFragment
 import com.example.criminalintent.fragment.CrimeListFragment
+import java.util.UUID
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), CrimeAdapter.Callbacks {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -26,8 +28,6 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-
         binding.replaceFragment.setOnClickListener {
             replaceFragment()
         }
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         binding.hideFragment.setOnClickListener {
             hideFragment()
         }
-        showCrimeFragment()
+        addFragment()
     }
 
     private fun replaceFragment() {
@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showCrimeFragment() {
+    private fun addFragment() {
         val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
         if (fragment == null) {
             val transaction = supportFragmentManager.beginTransaction()
@@ -76,6 +76,13 @@ class MainActivity : AppCompatActivity() {
             transaction.add(R.id.fragment_container, crimeFragment)
             transaction.commit()
         }
+    }
+
+    override fun onCrimeSelected(id: UUID) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, CrimeDetailFragment.newInstance(id))
+            .addToBackStack("move_to_detail")
+            .commit()
     }
 
     companion object {

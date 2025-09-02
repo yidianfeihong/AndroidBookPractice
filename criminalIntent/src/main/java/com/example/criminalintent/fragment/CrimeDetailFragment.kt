@@ -8,28 +8,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.criminalintent.database.Crime
+import androidx.lifecycle.ViewModelProvider
+import com.example.criminalintent.database.entity.Crime
 import com.example.criminalintent.databinding.FragmentCrimeBinding
+import com.example.criminalintent.viewmodel.CrimeDetailViewmodel
+import java.util.UUID
 import kotlin.random.Random
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private const val ARG_CRIME_ID = "crime_id"
 
-class CrimeFragment : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
-
+class CrimeDetailFragment : Fragment() {
+    private var crimeId: UUID? = null
     private var binding: FragmentCrimeBinding? = null
     private lateinit var crime: Crime
+
+    private val viewmodel by lazy {
+        ViewModelProvider(this)[CrimeDetailViewmodel::class.java]
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "onCreate")
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-        crime = Crime()
+        crimeId = arguments?.getSerializable(ARG_CRIME_ID) as? UUID
+        viewmodel.loadCrime(crimeId)
     }
 
     override fun onCreateView(
@@ -38,27 +39,33 @@ class CrimeFragment : Fragment() {
     ): View? {
         Log.d(TAG, "onCreateView")
         binding = FragmentCrimeBinding.inflate(layoutInflater, container, false)
-        binding?.crimeDate?.apply {
-            text = crime.date.toString()
-            isEnabled = false
-        }
         return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d(TAG, "onViewCreated")
+        viewmodel.crimeLiveData.observe(viewLifecycleOwner) { crime ->
+            Log.d(TAG, "receive crime data = $crime")
+            crime?.let {
+                this.crime = crime
+                updateUI()
+            }
+        }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        Log.d(TAG, "onActivityCreated")
+    private fun updateUI() {
+        binding?.crimeTitle?.setText(crime.title)
+        binding?.crimeDate?.text = crime.date.toString()
+        binding?.crimeSolved?.apply {
+            isChecked = crime.isSolved
+            jumpDrawablesToCurrentState()
+        }
     }
 
     override fun onStart() {
         super.onStart()
         Log.d(TAG, "onStart")
-        binding?.currentTime?.text = Random.Default.nextInt(10000).toString()
         binding?.crimeTitle?.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 Log.d(TAG, "afterTextChanged:$s")
@@ -88,35 +95,25 @@ class CrimeFragment : Fragment() {
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+        viewmodel.saveCrime(crime)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
         Log.d(TAG, "onDestroyView")
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d(TAG, "onDestroy")
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        Log.d(TAG, "onDetach")
-    }
-
     companion object {
-        private const val TAG = "CrimeFragment"
+        private const val TAG = "CrimeDetailFragment"
 
         @JvmStatic
-        fun newInstance(param1: String? = null, param2: String? = null) =
-            CrimeFragment().apply {
+        fun newInstance(crimeId: UUID) =
+            CrimeDetailFragment().apply {
                 arguments = Bundle().apply {
-                    param1?.let {
-                        putString(ARG_PARAM1, param1)
-                    }
-                    param2?.let {
-                        putString(ARG_PARAM2, param2)
-                    }
+                    putSerializable(ARG_CRIME_ID, crimeId)
                 }
             }
     }

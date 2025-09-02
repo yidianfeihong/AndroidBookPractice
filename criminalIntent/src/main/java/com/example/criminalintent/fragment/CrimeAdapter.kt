@@ -9,25 +9,36 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.criminalintent.CrimeApplication
 import com.example.criminalintent.R
-import com.example.criminalintent.database.Crime
+import com.example.criminalintent.database.entity.Crime
 import java.util.Locale
+import java.util.UUID
 
-class CrimeAdapter(var crimes: List<Crime>) :
+class CrimeAdapter(var crimes: List<Crime>, var callback: Callbacks? = null) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    open inner class CrimeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
-        View.OnClickListener {
+    init {
+        Log.d(TAG, "init callback = $callback")
+    }
+
+    interface Callbacks {
+        fun onCrimeSelected(id: UUID)
+    }
+
+    inner class CrimeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private lateinit var crime: Crime
         val titleView: TextView = itemView.findViewById(R.id.crime_title)
         val dateView: TextView = itemView.findViewById(R.id.crime_date)
+        val crimeSolvedView: View = itemView.findViewById(R.id.crime_solved)
 
         init {
-            itemView.setOnClickListener(this)
+            itemView.setOnClickListener {
+                Toast.makeText(itemView.context, "点击了${crime.title}", Toast.LENGTH_SHORT).show()
+                callback?.onCrimeSelected(crime.id)
+            }
         }
 
-        open fun bind(crime: Crime) {
+        fun bind(crime: Crime) {
             this.crime = crime
             titleView.text = crime.title
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -37,30 +48,10 @@ class CrimeAdapter(var crimes: List<Crime>) :
                 dateView.text =
                     android.text.format.DateFormat.format("EEEE, MMMM dd, yyyy", crime.date)
             }
-        }
-
-        override fun onClick(v: View?) {
-            Toast.makeText(
-                CrimeApplication.context,
-                "${crime.title} clicked!",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-    }
-
-    inner class CrimeRequirePoliceViewHolder(itemView: View) : CrimeViewHolder(itemView) {
-
-        val requirePoliceView: View = itemView.findViewById(R.id.crime_solved)
-
-        override fun bind(crime: Crime) {
-            super.bind(crime)
-            requirePoliceView.setOnClickListener {
-                Toast.makeText(CrimeApplication.context, "已报警", Toast.LENGTH_SHORT).show()
-            }
             if (crime.isSolved) {
-                requirePoliceView.visibility = View.GONE
+                crimeSolvedView.visibility = View.GONE
             } else {
-                requirePoliceView.visibility = View.VISIBLE
+                crimeSolvedView.visibility = View.VISIBLE
             }
         }
     }
@@ -84,33 +75,14 @@ class CrimeAdapter(var crimes: List<Crime>) :
         parent: ViewGroup,
         viewType: Int
     ): RecyclerView.ViewHolder {
-        var viewHolder: RecyclerView.ViewHolder?
-        when (viewType) {
-            ITEM_STYLE_COMMON -> {
-                val itemView =
-                    LayoutInflater.from(parent.context)
-                        .inflate(R.layout.list_item_crime_common, parent, false)
-                viewHolder = CrimeViewHolder(itemView)
-            }
-
-            ITEM_STYLE_REQUIRE_POLICE -> {
-                val itemView =
-                    LayoutInflater.from(parent.context).inflate(
-                        R.layout.list_item_crime_require_police,
-                        parent,
-                        false
-                    )
-                viewHolder = CrimeRequirePoliceViewHolder(itemView)
-            }
-
-            else -> {
-                val itemView =
-                    LayoutInflater.from(parent.context)
-                        .inflate(R.layout.list_item_crime_common, parent, false)
-                viewHolder = CrimeViewHolder(itemView)
-            }
-        }
-        return viewHolder
+        Log.d(TAG, "onCreateViewHolder:$viewType")
+        val itemView =
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.list_item_crime_require_police,
+                parent,
+                false
+            )
+        return CrimeViewHolder(itemView)
     }
 
     override fun onBindViewHolder(
@@ -118,20 +90,8 @@ class CrimeAdapter(var crimes: List<Crime>) :
         position: Int
     ) {
         Log.d(TAG, "onBindViewHolder:$position")
-        if (position < crimes.size) {
-            val crime = crimes[position]
-            if (holder is CrimeViewHolder) {
-                holder.bind(crime)
-            }
-        }
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return ITEM_STYLE_REQUIRE_POLICE
-//        return when (crimes[position].requiresPolice) {
-//            true -> ITEM_STYLE_REQUIRE_POLICE
-//            false -> ITEM_STYLE_COMMON
-//        }
+        val crime = crimes[position]
+        (holder as? CrimeViewHolder)?.bind(crime)
     }
 
     override fun getItemCount(): Int {
@@ -139,9 +99,6 @@ class CrimeAdapter(var crimes: List<Crime>) :
     }
 
     companion object {
-
         private const val TAG = "CrimeAdapter"
-        private const val ITEM_STYLE_COMMON: Int = 0
-        private const val ITEM_STYLE_REQUIRE_POLICE: Int = 1
     }
 }

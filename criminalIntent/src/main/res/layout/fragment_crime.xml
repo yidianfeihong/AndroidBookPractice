@@ -5,13 +5,7 @@
     android:layout_height="match_parent"
     android:layout_margin="16dp"
     android:orientation="vertical"
-    tools:context=".fragment.CrimeFragment">
-
-    <TextView
-        android:id="@+id/current_time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="" />
+    tools:context=".fragment.CrimeDetailFragment">
 
     <TextView
         style="?android:listSeparatorTextViewStyle"
