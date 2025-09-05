@@ -46,3 +46,4 @@ rootProject.name = "AndroidBookPractice"
 include ':app'
 include ':criminalIntent'
 include ':platform'
+include ':navigationdemo'
