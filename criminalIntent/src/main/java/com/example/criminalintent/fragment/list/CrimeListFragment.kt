@@ -1,4 +1,4 @@
-package com.example.criminalintent.fragment
+package com.example.criminalintent.fragment.list
 
 import android.content.Context
 import android.os.Bundle
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.criminalintent.R
 import com.example.criminalintent.database.entity.Crime
-import com.example.criminalintent.fragment.CrimeListAdapter.Callbacks
+import com.example.criminalintent.fragment.list.CrimeListAdapter.Callbacks
 import com.example.criminalintent.viewmodel.CrimeListViewmodel
 
 

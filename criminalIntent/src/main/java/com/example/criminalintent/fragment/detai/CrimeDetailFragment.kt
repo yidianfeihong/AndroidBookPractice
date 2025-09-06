@@ -1,4 +1,4 @@
-package com.example.criminalintent.fragment
+package com.example.criminalintent.fragment.detai
 
 import android.os.Bundle
 import android.text.Editable
@@ -11,13 +11,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.criminalintent.database.entity.Crime
 import com.example.criminalintent.databinding.FragmentCrimeBinding
+import com.example.criminalintent.fragment.detai.DatePickerFragment.Companion.ARG_DATE
+import com.example.criminalintent.fragment.detai.DatePickerFragment.Companion.REQUEST_KEY_DATE
 import com.example.criminalintent.viewmodel.CrimeDetailViewmodel
+import java.util.Date
 import java.util.UUID
-import kotlin.random.Random
 
 private const val ARG_CRIME_ID = "crime_id"
 
-class CrimeDetailFragment : Fragment() {
+class CrimeDetailFragment : Fragment(), DatePickerFragment.DatePickCallbacks {
     private var crimeId: UUID? = null
     private var binding: FragmentCrimeBinding? = null
     private lateinit var crime: Crime
@@ -93,6 +95,23 @@ class CrimeDetailFragment : Fragment() {
         binding?.crimeSolved?.setOnCheckedChangeListener { buttonView, isChecked ->
             crime.isSolved = isChecked
         }
+        parentFragmentManager.setFragmentResultListener(
+            REQUEST_KEY_DATE,
+            this
+        ) { requestKey, result ->
+            val date = result.getSerializable(ARG_DATE) as? Date
+            if (date != null) {
+                crime.date = date
+                updateUI()
+            }
+        }
+
+        binding?.crimeDate?.setOnClickListener {
+            DatePickerFragment.newInstance(crime.date).apply {
+                setTargetFragment(this@CrimeDetailFragment, REQUEST_CODE_DATE)
+                show(this@CrimeDetailFragment.parentFragmentManager, DIALOG_DATE)
+            }
+        }
     }
 
     override fun onStop() {
@@ -106,8 +125,15 @@ class CrimeDetailFragment : Fragment() {
         Log.d(TAG, "onDestroyView")
     }
 
+    override fun onDateSelected(date: Date) {
+        crime.date = date
+        updateUI()
+    }
+
     companion object {
         private const val TAG = "CrimeDetailFragment"
+        private const val REQUEST_CODE_DATE = 0
+        private const val DIALOG_DATE = "dialogDate"
 
         @JvmStatic
         fun newInstance(crimeId: UUID) =

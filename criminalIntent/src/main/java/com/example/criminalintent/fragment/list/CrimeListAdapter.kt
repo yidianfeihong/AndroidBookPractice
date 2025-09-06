@@ -1,7 +1,8 @@
-package com.example.criminalintent.fragment
+package com.example.criminalintent.fragment.list
 
 import android.icu.text.SimpleDateFormat
 import android.os.Build
+import android.text.format.DateFormat
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -41,7 +42,7 @@ class CrimeListAdapter(var crimes: List<Crime>, var callback: Callbacks? = null)
 
         init {
             itemView.setOnClickListener {
-                Toast.makeText(itemView.context, "点击了${crime.title}", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(itemView.context, "点击了${crime.title}", Toast.LENGTH_SHORT).show()
                 callback?.onCrimeSelected(crime.id)
             }
         }
@@ -54,7 +55,7 @@ class CrimeListAdapter(var crimes: List<Crime>, var callback: Callbacks? = null)
                 dateView.text = dateFormat.format(crime.date)
             } else {
                 dateView.text =
-                    android.text.format.DateFormat.format("EEEE, MMMM dd, yyyy", crime.date)
+                    DateFormat.format("EEEE, MMMM dd, yyyy", crime.date)
             }
             if (crime.isSolved) {
                 crimeSolvedView.visibility = View.GONE

@@ -8,9 +8,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.criminalintent.R
 import com.example.criminalintent.databinding.ActivityMainBinding
-import com.example.criminalintent.fragment.CrimeListAdapter
-import com.example.criminalintent.fragment.CrimeDetailFragment
-import com.example.criminalintent.fragment.CrimeListFragment
+import com.example.criminalintent.fragment.list.CrimeListAdapter
+import com.example.criminalintent.fragment.detai.CrimeDetailFragment
+import com.example.criminalintent.fragment.list.CrimeListFragment
 import java.util.UUID
 
 class MainActivity : AppCompatActivity(), CrimeListAdapter.Callbacks {
