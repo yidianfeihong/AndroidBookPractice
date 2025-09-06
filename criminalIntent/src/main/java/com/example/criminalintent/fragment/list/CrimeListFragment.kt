@@ -56,6 +56,7 @@ class CrimeListFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        Log.d(TAG, "onOptionsItemSelected item = ${item.title}")
         return when (item.itemId) {
             R.id.new_crime -> {
                 val crime = Crime()

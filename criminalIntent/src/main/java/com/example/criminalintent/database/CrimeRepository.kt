@@ -2,6 +2,8 @@ package com.example.criminalintent.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.Room
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.criminalintent.CrimeApplication
 import com.example.criminalintent.database.entity.Crime
 import java.util.UUID
@@ -17,7 +19,12 @@ object CrimeRepository {
             CrimeApplication.context,
             klass = CrimeDatabase::class.java,
             name = DATABASE_NAME
-        ).build()
+        ).addMigrations(object : Migration(1, 2) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE Crime ADD COLUMN suspect TEXT NOT NULL DEFAULT ''")
+            }
+        })
+            .build()
 
     private val dao = database.crimeDao()
 

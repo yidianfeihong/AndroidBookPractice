@@ -9,7 +9,7 @@ import com.example.criminalintent.database.dao.CrimeDao
 import com.example.criminalintent.database.entity.Crime
 
 @Database(
-    version = 1,
+    version = 2,
     entities = [Crime::class],
     exportSchema = true
 )
