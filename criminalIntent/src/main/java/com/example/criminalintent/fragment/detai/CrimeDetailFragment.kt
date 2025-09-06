@@ -5,6 +5,8 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TimePicker
@@ -34,6 +36,7 @@ class CrimeDetailFragment : Fragment(), DatePickerFragment.DatePickCallbacks {
         Log.d(TAG, "onCreate")
         crimeId = arguments?.getSerializable(ARG_CRIME_ID) as? UUID
         viewmodel.loadCrime(crimeId)
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -43,6 +46,11 @@ class CrimeDetailFragment : Fragment(), DatePickerFragment.DatePickCallbacks {
         Log.d(TAG, "onCreateView")
         binding = FragmentCrimeBinding.inflate(layoutInflater, container, false)
         return binding?.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        Log.d(TAG, "onCreateOptionsMenu")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
