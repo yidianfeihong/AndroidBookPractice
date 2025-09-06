@@ -45,6 +45,8 @@ class DatePickerFragment : DialogFragment() {
     companion object {
         const val ARG_DATE = "date"
         const val REQUEST_KEY_DATE = "dateRequest"
+
+        @JvmStatic
         fun newInstance(date: Date): DatePickerFragment {
             return DatePickerFragment().apply {
                 arguments = Bundle().apply {

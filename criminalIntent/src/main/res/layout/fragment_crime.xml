@@ -26,9 +26,16 @@
         android:text="@string/crime_details_label" />
 
     <Button
-        android:id="@+id/crime_date"
+        android:id="@+id/crime_date_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        tools:text="WED NOV 07 15:19:13 EST 2018" />
+
+    <Button
+        android:id="@+id/crime_time_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="选择时间"
         tools:text="WED NOV 07 15:19:13 EST 2018" />
 
     <CheckBox

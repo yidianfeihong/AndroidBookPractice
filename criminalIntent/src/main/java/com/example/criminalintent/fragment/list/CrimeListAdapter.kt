@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -37,7 +36,7 @@ class CrimeListAdapter(var crimes: List<Crime>, var callback: Callbacks? = null)
     inner class CrimeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private lateinit var crime: Crime
         val titleView: TextView = itemView.findViewById(R.id.crime_title)
-        val dateView: TextView = itemView.findViewById(R.id.crime_date)
+        val dateView: TextView = itemView.findViewById(R.id.crime_date_button)
         val crimeSolvedView: View = itemView.findViewById(R.id.crime_solved)
 
         init {

@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TimePicker
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.criminalintent.database.entity.Crime
@@ -58,7 +59,7 @@ class CrimeDetailFragment : Fragment(), DatePickerFragment.DatePickCallbacks {
 
     private fun updateUI() {
         binding?.crimeTitle?.setText(crime.title)
-        binding?.crimeDate?.text = crime.date.toString()
+        binding?.crimeDateButton?.text = crime.date.toString()
         binding?.crimeSolved?.apply {
             isChecked = crime.isSolved
             jumpDrawablesToCurrentState()
@@ -106,11 +107,22 @@ class CrimeDetailFragment : Fragment(), DatePickerFragment.DatePickCallbacks {
             }
         }
 
-        binding?.crimeDate?.setOnClickListener {
+        binding?.crimeDateButton?.setOnClickListener {
             DatePickerFragment.newInstance(crime.date).apply {
                 setTargetFragment(this@CrimeDetailFragment, REQUEST_CODE_DATE)
                 show(this@CrimeDetailFragment.parentFragmentManager, DIALOG_DATE)
             }
+        }
+
+        binding?.crimeTimeButton?.setOnClickListener {
+            TimePickerFragment.newInstance().apply {
+                timeChangeObserver = TimePicker.OnTimeChangedListener { view, hourOfDay, minute ->
+                    Log.d(
+                        TAG,
+                        "time change：hourOfDay = $hourOfDay,minute = $minute"
+                    )
+                }
+            }.show(parentFragmentManager, null)
         }
     }
 

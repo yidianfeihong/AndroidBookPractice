@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity(), CrimeListAdapter.Callbacks {
         enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.customToolbar)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -43,7 +44,7 @@ class MainActivity : AppCompatActivity(), CrimeListAdapter.Callbacks {
     }
 
     private fun replaceFragment() {
-        val crimeListFragment = CrimeListFragment.Companion.newInstance()
+        val crimeListFragment = CrimeListFragment.newInstance()
         supportFragmentManager.beginTransaction().replace(
             R.id.fragment_container, crimeListFragment
         ).addToBackStack("replace_transaction")
