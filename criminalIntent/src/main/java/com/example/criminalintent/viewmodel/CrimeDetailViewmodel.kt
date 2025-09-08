@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
 import com.example.criminalintent.database.CrimeRepository
 import com.example.criminalintent.database.entity.Crime
+import java.io.File
 import java.util.UUID
 
 class CrimeDetailViewmodel : ViewModel() {
@@ -28,6 +29,10 @@ class CrimeDetailViewmodel : ViewModel() {
 
     fun saveCrime(crime: Crime) {
         CrimeRepository.update(crime)
+    }
+
+    fun getCrimePhotoFile(crime: Crime): File {
+        return CrimeRepository.getPhotoFile(crime)
     }
 
     companion object {

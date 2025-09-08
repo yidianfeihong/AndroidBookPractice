@@ -1,4 +1,4 @@
-package com.example.criminalintent.fragment.detai
+package com.example.criminalintent.fragment.detai.dialog
 
 import android.app.DatePickerDialog
 import android.app.Dialog
@@ -8,7 +8,7 @@ import java.util.Calendar
 import java.util.Date
 import java.util.GregorianCalendar
 
-class DatePickerFragment : DialogFragment() {
+class DatePickerDialogFragment : DialogFragment() {
     interface DatePickCallbacks {
         fun onDateSelected(date: Date)
     }
@@ -47,8 +47,8 @@ class DatePickerFragment : DialogFragment() {
         const val REQUEST_KEY_DATE = "dateRequest"
 
         @JvmStatic
-        fun newInstance(date: Date): DatePickerFragment {
-            return DatePickerFragment().apply {
+        fun newInstance(date: Date): DatePickerDialogFragment {
+            return DatePickerDialogFragment().apply {
                 arguments = Bundle().apply {
                     putSerializable(ARG_DATE, date)
                 }

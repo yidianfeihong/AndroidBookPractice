@@ -13,4 +13,6 @@ data class Crime(
     var date: Date = Date(),
     var isSolved: Boolean = false,
     var suspect: String = ""
-)
+) {
+    fun getPhotoFileName() = "IMG_$id.jpg"
+}

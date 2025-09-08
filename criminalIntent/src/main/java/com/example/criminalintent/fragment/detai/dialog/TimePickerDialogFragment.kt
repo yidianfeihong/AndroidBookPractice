@@ -1,4 +1,4 @@
-package com.example.criminalintent.fragment.detai
+package com.example.criminalintent.fragment.detai.dialog
 
 import android.os.Bundle
 import android.util.Log
@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.TimePicker
 import androidx.fragment.app.DialogFragment
 
-class TimePickerFragment : DialogFragment() {
+class TimePickerDialogFragment : DialogFragment() {
 
     var timeChangeObserver: TimePicker.OnTimeChangedListener? = null
 
@@ -35,8 +35,8 @@ class TimePickerFragment : DialogFragment() {
         private const val TAG = "TimePickerFragment"
 
         @JvmStatic
-        fun newInstance(): TimePickerFragment {
-            return TimePickerFragment()
+        fun newInstance(): TimePickerDialogFragment {
+            return TimePickerDialogFragment()
         }
     }
 }
