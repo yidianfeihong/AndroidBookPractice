@@ -38,6 +38,7 @@ import com.example.criminalintent.utils.PictureUtils
 import com.example.criminalintent.viewmodel.CrimeDetailViewmodel
 import java.io.File
 import java.util.Date
+import java.util.Locale
 import java.util.UUID
 
 private const val ARG_CRIME_ID = "crime_id"
@@ -112,7 +113,10 @@ class CrimeDetailFragment : Fragment(), DatePickerDialogFragment.DatePickCallbac
 
     private fun updateUI() {
         binding?.crimeTitle?.setText(crime.title)
-        binding?.crimeDateButton?.text = crime.date.toString()
+        val formatDate =
+            java.text.DateFormat.getDateInstance(java.text.DateFormat.LONG, Locale.getDefault())
+                .format(crime.date)
+        binding?.crimeDateButton?.text = formatDate
         if (!crime.suspect.isEmpty()) {
             binding?.crimeSuspectButton?.text = crime.suspect
         }
@@ -162,6 +166,7 @@ class CrimeDetailFragment : Fragment(), DatePickerDialogFragment.DatePickCallbac
                         TAG,
                         "time change：hourOfDay = $hourOfDay,minute = $minute"
                     )
+                    binding?.crimeTimeButton?.text = "$hourOfDay:$minute"
                 }
             }.show(parentFragmentManager, null)
         }

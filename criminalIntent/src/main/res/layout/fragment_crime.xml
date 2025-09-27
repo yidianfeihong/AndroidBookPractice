@@ -57,7 +57,7 @@
             android:id="@+id/crime_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:autofillHints="Enter a title for the crime"
+            android:hint="@string/crime_title_hint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toEndOf="@id/photo_container"
@@ -83,7 +83,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/choose_time_text"
-        tools:text="WED NOV 07 15:19:13 EST 2018" />
+        tools:text="15:19" />
 
     <Button
         android:id="@+id/crime_report_button"
