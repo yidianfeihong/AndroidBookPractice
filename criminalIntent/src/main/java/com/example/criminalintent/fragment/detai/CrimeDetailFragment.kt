@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.provider.MediaStore
+import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
 import android.text.format.DateFormat
@@ -22,7 +23,8 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.TimePicker
 import android.widget.Toast
-import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
@@ -36,6 +38,7 @@ import com.example.criminalintent.fragment.detai.dialog.DatePickerDialogFragment
 import com.example.criminalintent.fragment.detai.dialog.TimePickerDialogFragment
 import com.example.criminalintent.utils.PictureUtils
 import com.example.criminalintent.viewmodel.CrimeDetailViewmodel
+import com.permissionx.mingdev.PermissionX
 import java.io.File
 import java.util.Date
 import java.util.Locale
@@ -207,18 +210,7 @@ class CrimeDetailFragment : Fragment(), DatePickerDialogFragment.DatePickCallbac
             }
         }
         binding?.crimeCallButton?.setOnClickListener {
-            if (ContextCompat.checkSelfPermission(
-                    requireContext(),
-                    Manifest.permission.CALL_PHONE
-                ) == PackageManager.PERMISSION_GRANTED
-            ) {
-                makeCall()
-            } else {
-                requestPermissions(
-                    arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.CALL_PHONE),
-                    REQUEST_PERMISSIONS
-                )
-            }
+            requestPermission()
         }
         binding?.capturePhotoButton?.apply {
             val captureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
@@ -253,6 +245,63 @@ class CrimeDetailFragment : Fragment(), DatePickerDialogFragment.DatePickCallbac
                     .show(parentFragmentManager, null)
             }
         }
+    }
+
+    private fun requestPermission() {
+        PermissionX.requestPermission(
+            requireActivity(),
+            Manifest.permission.READ_CONTACTS,
+            Manifest.permission.CALL_PHONE
+        ) { allGranted, deniedList ->
+            if (allGranted) {
+                makeCall()
+            } else {
+                if (deniedList.isEmpty()) {
+                    return@requestPermission
+                }
+                //轮流取被拒绝的权限
+                val deniedPermission = deniedList[0]
+                if (ActivityCompat.shouldShowRequestPermissionRationale(
+                        requireActivity(),
+                        deniedPermission
+                    )
+                ) {
+                    showExplanationDialog("需要使用电话及联系人权限才能联系", "确定", null)
+                } else {
+                    showExplanationDialog(
+                        "电话或联系人权限已被永久拒绝，请到应用设置中手动开启",
+                        "去设置"
+                    ) {
+                        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                        intent.setData(
+                            Uri.fromParts(
+                                "package",
+                                requireActivity().packageName,
+                                null
+                            )
+                        )
+                        startActivity(intent)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun showExplanationDialog(
+        message: String,
+        positiveButtonText: String,
+        onPositiveClick: (() -> Unit)?
+    ) {
+        AlertDialog.Builder(requireActivity())
+            .setTitle("权限说明")
+            .setMessage(message)
+            .setPositiveButton(positiveButtonText) { dialog, _ ->
+                onPositiveClick?.invoke()
+                dialog.dismiss()
+            }
+            .setNegativeButton("取消", null)
+            .create()
+            .show()
     }
 
     override fun onDetach() {
@@ -299,21 +348,6 @@ class CrimeDetailFragment : Fragment(), DatePickerDialogFragment.DatePickCallbac
                     }
                     return@use
                 }
-            }
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String?>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQUEST_PERMISSIONS) {
-            if (grantResults.isNotEmpty() && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                makeCall()
-            } else {
-                Toast.makeText(requireContext(), "拨打电话权限被拒绝", Toast.LENGTH_SHORT).show()
             }
         }
     }
