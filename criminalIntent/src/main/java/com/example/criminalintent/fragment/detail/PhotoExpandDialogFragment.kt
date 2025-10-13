@@ -1,4 +1,4 @@
-package com.example.criminalintent.fragment.detai
+package com.example.criminalintent.fragment.detail
 
 import android.graphics.Color
 import android.os.Bundle

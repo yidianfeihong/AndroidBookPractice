@@ -1,4 +1,4 @@
-package com.example.criminalintent.fragment.detai.dialog
+package com.example.criminalintent.fragment.detail.dialog
 
 import android.os.Bundle
 import android.util.Log

@@ -1,6 +1,5 @@
 package com.example.criminalintent.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
@@ -9,8 +8,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.criminalintent.R
 import com.example.criminalintent.databinding.ActivityMainBinding
+import com.example.criminalintent.fragment.detail.CrimeDetailFragment
 import com.example.criminalintent.fragment.list.CrimeListAdapter
-import com.example.criminalintent.fragment.detai.CrimeDetailFragment
 import com.example.criminalintent.fragment.list.CrimeListFragment
 import java.util.UUID
 

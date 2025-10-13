@@ -1,4 +1,4 @@
-package com.example.criminalintent.fragment.detai
+package com.example.criminalintent.fragment.detail
 
 import android.Manifest
 import android.app.Activity
@@ -32,10 +32,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.criminalintent.R
 import com.example.criminalintent.database.entity.Crime
 import com.example.criminalintent.databinding.FragmentCrimeBinding
-import com.example.criminalintent.fragment.detai.dialog.DatePickerDialogFragment
-import com.example.criminalintent.fragment.detai.dialog.DatePickerDialogFragment.Companion.ARG_DATE
-import com.example.criminalintent.fragment.detai.dialog.DatePickerDialogFragment.Companion.REQUEST_KEY_DATE
-import com.example.criminalintent.fragment.detai.dialog.TimePickerDialogFragment
+import com.example.criminalintent.fragment.detail.dialog.DatePickerDialogFragment
+import com.example.criminalintent.fragment.detail.dialog.DatePickerDialogFragment.Companion.ARG_DATE
+import com.example.criminalintent.fragment.detail.dialog.DatePickerDialogFragment.Companion.REQUEST_KEY_DATE
+import com.example.criminalintent.fragment.detail.dialog.TimePickerDialogFragment
 import com.example.criminalintent.utils.PictureUtils
 import com.example.criminalintent.viewmodel.CrimeDetailViewmodel
 import com.permissionx.mingdev.PermissionX
