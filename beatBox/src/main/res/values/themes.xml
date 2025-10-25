@@ -1,8 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.AndroidBookPractice" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.AndroidBookPractice" parent="Theme.Material3.Dark">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/red</item>
+        <item name="colorPrimaryDark">@color/dark_red</item>
+        <item name="colorAccent">@color/gray</item>
+        <item name="android:windowBackground">@color/soothing_blue</item>
+        <item name="buttonStyle">@style/BeatBox.Button</item>
     </style>
 
     <style name="Theme.AndroidBookPractice" parent="Base.Theme.AndroidBookPractice" />

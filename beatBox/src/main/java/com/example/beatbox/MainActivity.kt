@@ -64,9 +64,6 @@ class MainActivity : AppCompatActivity() {
 
         init {
             itemSoundBinding.viewModel = SoundViewModel(viewModel.beatBox)
-            itemSoundBinding.root.setOnClickListener {
-                itemSoundBinding.viewModel?.onButtonClicked()
-            }
         }
 
         fun bind(sound: Sound) {
