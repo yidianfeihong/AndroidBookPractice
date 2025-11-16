@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">photoGallery</string>
+    <string name="search">搜索</string>
+    <string name="clear">清除</string>
+    <string name="start_polling">开启轮询</string>
+    <string name="stop_polling">停止轮询</string>
+    <string name="new_pictures_title">新图片</string>
+    <string name="new_pictures_text">应用内有新图片更新了</string>
+</resources>
