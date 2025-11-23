@@ -17,7 +17,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -32,6 +31,7 @@ import com.example.photogallery.QueryPreferences
 import com.example.photogallery.R
 import com.example.photogallery.databinding.FragmentPhotoGalleryBinding
 import com.example.photogallery.model.PhotoDetail
+import com.example.photogallery.ui.PhotoGalleryWebActivity
 import com.example.photogallery.viewmodel.PhotoGalleryViewModel
 import com.example.photogallery.work.PollWorker
 import com.permissionx.mingdev.PermissionX
@@ -40,7 +40,7 @@ import java.util.concurrent.TimeUnit
 /**
  * 只实现了获取精选图片集功能，其它搜索等接口不再一一尝试
  */
-class PhotoGalleryFragment : Fragment() {
+class PhotoGalleryMainFragment : VisibleFragment() {
 
     private lateinit var binding: FragmentPhotoGalleryBinding
 
@@ -49,7 +49,7 @@ class PhotoGalleryFragment : Fragment() {
         private const val POLL_WORK = "POLL_WORK"
 
         @JvmStatic
-        fun newInstance() = PhotoGalleryFragment()
+        fun newInstance() = PhotoGalleryMainFragment()
     }
 
     private val viewModel: PhotoGalleryViewModel by viewModels()
@@ -85,9 +85,24 @@ class PhotoGalleryFragment : Fragment() {
 
         inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+            private lateinit var photo: PhotoDetail
+
+            init {
+                itemView.setOnClickListener {
+                    startActivity(PhotoGalleryWebActivity.newIntent(requireActivity(), photo))
+//                    CustomTabsIntent.Builder()
+//                        .setToolbarColor(ContextCompat.getColor(
+//                            requireContext(), com.google.android.material.R.color.design_default_color_on_primary))
+//                        .setShowTitle(true)
+//                        .build()
+//                        .launchUrl(requireContext(), Uri.parse(photo.linkPageUrl))
+                }
+            }
+
             var imageView: ImageView = itemView.findViewById(R.id.image)
 
             fun bind(photo: PhotoDetail) {
+                this.photo = photo
                 Glide.with(requireContext())
                     .load(photo.downloadUrls.tiny)
                     .into(imageView)
@@ -162,7 +177,7 @@ class PhotoGalleryFragment : Fragment() {
             R.id.menu_item_toggle_polling -> {
                 val isPolling = QueryPreferences.isPolling(requireContext())
                 if (isPolling) {
-                    WorkManager.getInstance().cancelUniqueWork(POLL_WORK)
+                    WorkManager.getInstance(requireContext()).cancelUniqueWork(POLL_WORK)
                     QueryPreferences.setPolling(requireContext(), false)
                 } else {
                     //模拟器无法满足，即便网络是正常连接：state = NetworkState(isConnected=true, isValidated=false, isMetered=false, isNotRoaming=true)
@@ -182,7 +197,8 @@ class PhotoGalleryFragment : Fragment() {
                         ExistingPeriodicWorkPolicy.KEEP,
                         periodicRequest
                     )
-                    val connectivityManager = requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+                    val connectivityManager =
+                        requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
                     val activeNetwork = connectivityManager.activeNetwork
                     val isConnected = activeNetwork != null
                     Log.d("NetworkCheck", "当前网络连接状态: $isConnected")

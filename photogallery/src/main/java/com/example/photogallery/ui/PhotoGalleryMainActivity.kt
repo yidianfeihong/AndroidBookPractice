@@ -1,4 +1,4 @@
-package com.example.photogallery
+package com.example.photogallery.ui
 
 import android.content.Context
 import android.content.Intent
@@ -8,17 +8,18 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.photogallery.R
 import com.example.photogallery.databinding.ActivityMainBinding
-import com.example.photogallery.fragment.PhotoGalleryFragment
+import com.example.photogallery.fragment.PhotoGalleryMainFragment
 
-class PhotoGalleryActivity : AppCompatActivity() {
+class PhotoGalleryMainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
     companion object {
         private const val TAG = "PhotoGalleryActivity"
         fun newIntent(context: Context): Intent {
-            return Intent(context, PhotoGalleryActivity::class.java)
+            return Intent(context, PhotoGalleryMainActivity::class.java)
         }
     }
 
@@ -34,7 +35,7 @@ class PhotoGalleryActivity : AppCompatActivity() {
         }
         Log.d(TAG, "onCreate")
         supportFragmentManager.beginTransaction()
-            .replace(binding.main.id, PhotoGalleryFragment.newInstance())
+            .replace(binding.main.id, PhotoGalleryMainFragment.newInstance())
             .commit()
     }
 }

@@ -1,6 +1,7 @@
 package com.example.photogallery.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class PhotoDetail(
     val id: Long,
@@ -12,4 +13,4 @@ data class PhotoDetail(
     //这里是图片的下载链接
     @SerializedName("src")
     val downloadUrls: PhotoUrls
-)
+) : Serializable

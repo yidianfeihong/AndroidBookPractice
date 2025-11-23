@@ -3,7 +3,15 @@
     <style name="Base.Theme.AndroidBookPractice" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+<!--        <item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
+<!--        <item name="android:windowContentOverlay">@null</item>-->
+<!--        <item name="android:fitsSystemWindows">true</item>-->
         <item name="windowActionBarOverlay">true</item>
+        <!-- Android 15 兼容专属解决方案 -->
+<!--        <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="VANILLA_ICE_CREAM">-->
+            true
+<!--        </item>-->
+
     </style>
 
     <style name="Theme.AndroidBookPractice" parent="Base.Theme.AndroidBookPractice" />

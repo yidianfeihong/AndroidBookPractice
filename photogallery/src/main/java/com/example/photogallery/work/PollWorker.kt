@@ -1,25 +1,28 @@
 package com.example.photogallery.work
 
-import android.Manifest
+import android.app.Notification
 import android.app.PendingIntent
 import android.content.Context
-import android.content.pm.PackageManager
+import android.content.Intent
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.example.photogallery.PhotoGalleryActivity
+import com.example.photogallery.ui.PhotoGalleryMainActivity
 import com.example.photogallery.PhotoGalleryApplication.Companion.NOTIFICATION_CHANNEL_ID
 import com.example.photogallery.QueryPreferences
 import com.example.photogallery.R
 import com.example.photogallery.model.PexelsRepository
 
+
 class PollWorker(val context: Context, workerParams: WorkerParameters) :
     CoroutineWorker(context, workerParams) {
     companion object {
         const val TAG = "PollWorker"
+        const val ACTION_SHOW_NOTIFICATION = "com.example.photogallery.SHOW_NOTIFICATION"
+        const val PERMISSION_PRIVATE = "com.example.photogallery.PRIVATE"
+        const val REQUEST_CODE = "request_code"
+        const val NOTIFICATION = "notification"
     }
 
     override suspend fun doWork(): Result {
@@ -41,7 +44,7 @@ class PollWorker(val context: Context, workerParams: WorkerParameters) :
         ) {
             Log.i(TAG, "Got a new result: $resultId")
             QueryPreferences.setLastResultId(context, resultId)
-            val intent = PhotoGalleryActivity.newIntent(context)
+            val intent = PhotoGalleryMainActivity.newIntent(context)
             val pendingIntent = PendingIntent.getActivity(
                 context, 0, intent,
                 PendingIntent.FLAG_IMMUTABLE
@@ -56,19 +59,21 @@ class PollWorker(val context: Context, workerParams: WorkerParameters) :
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 .build()
-            val notificationManager = NotificationManagerCompat.from(context)
-            if (ContextCompat.checkSelfPermission(
-                    context,
-                    Manifest.permission.POST_NOTIFICATIONS
-                ) == PackageManager.PERMISSION_GRANTED
-            ) {
-                notificationManager.notify(0, notification)
-            } else {
-                Log.e(TAG, "没有通知权限")
-            }
+            showBackgroundNotification(notification)
         } else {
             Log.i(TAG, "Got an old result: $resultId")
         }
         return Result.success()
+    }
+
+    private fun showBackgroundNotification(notification: Notification) {
+        val notificationIntent =
+            Intent(ACTION_SHOW_NOTIFICATION).setPackage(context.packageName)
+        notificationIntent.putExtra(REQUEST_CODE, 0)
+        notificationIntent.putExtra(NOTIFICATION, notification)
+        context.sendOrderedBroadcast(
+            notificationIntent,
+            PERMISSION_PRIVATE
+        )
     }
 }
