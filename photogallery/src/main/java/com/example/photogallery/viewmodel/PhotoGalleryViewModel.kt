@@ -1,6 +1,7 @@
 package com.example.photogallery.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -30,12 +31,17 @@ class PhotoGalleryViewModel(private val app: Application) : AndroidViewModel(app
         QueryPreferences.setStoredQuery(app, query)
         mutableSearchTerm.value = query
         viewModelScope.launch {
-            val basePhotoResult = if (searchTerm.isBlank()) {
-                repository.fetchPhotos()
-            } else {
-                repository.searchPhotos(searchTerm)
+            try {
+                val basePhotoResult = if (searchTerm.isBlank()) {
+                    repository.fetchPhotos()
+                } else {
+                    repository.searchPhotos(searchTerm)
+                }
+                _galleryItemLiveData.value = basePhotoResult.photos
+            } catch (e: Exception) {
+                Log.e("PhotoGalleryVM", "Failed to fetch photos", e)
+                _galleryItemLiveData.value = emptyList()
             }
-            _galleryItemLiveData.value = basePhotoResult.photos
         }
     }
 }

@@ -8,5 +8,5 @@ class BasePhotoResult(
     @SerializedName("per_page")
     val perPage: Int,
     @SerializedName("next_page")
-    val nextPage: String,
+    val nextPage: String? = null,
 )
