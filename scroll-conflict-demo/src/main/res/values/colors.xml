@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary colors - Material Design Purple -->
+    <color name="primary">#6200EE</color>
+    <color name="primary_dark">#3700B3</color>
+    <color name="primary_light">#BB86FC</color>
+    <color name="accent">#03DAC5</color>
+    <color name="accent_dark">#018786</color>
+
+    <!-- Background colors for nested views - Material Design inspired -->
+    <color name="bg_outer_container">#F5F5F5</color>        <!-- Light grey for outer container -->
+    <color name="bg_inner_container">#FFFFFF</color>        <!-- White for inner content -->
+    <color name="bg_nested_level_1">#E3F2FD</color>         <!-- Light Blue 50 - First nesting level -->
+    <color name="bg_nested_level_2">#FFF3E0</color>         <!-- Orange 50 - Second nesting level -->
+    <color name="bg_nested_level_3">#F3E5F5</color>         <!-- Purple 50 - Third nesting level -->
+    
+    <!-- Card background -->
+    <color name="bg_card">#FFFFFF</color>
+
+    <!-- Text colors - Material Design -->
+    <color name="text_primary">#212121</color>              <!-- High emphasis text -->
+    <color name="text_secondary">#757575</color>            <!-- Medium emphasis text -->
+    <color name="text_disabled">#9E9E9E</color>             <!-- Disabled text -->
+    <color name="text_on_primary">#FFFFFF</color>           <!-- Text on primary color -->
+
+    <!-- Border and divider colors -->
+    <color name="border_color">#BDBDBD</color>              <!-- Grey 400 -->
+    <color name="divider_color">#E0E0E0</color>             <!-- Grey 300 -->
+    
+    <!-- State colors -->
+    <color name="state_conflict">#EF5350</color>            <!-- Red 400 - Conflict state -->
+    <color name="state_resolved">#66BB6A</color>            <!-- Green 400 - Resolved state -->
+    
+    <!-- Ripple effect -->
+    <color name="ripple_color">#1F000000</color>            <!-- 12% black for ripple -->
+</resources>

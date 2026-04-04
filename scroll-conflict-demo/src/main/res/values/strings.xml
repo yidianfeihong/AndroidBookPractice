@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">滑动冲突演示</string>
+
+    <!-- 主界面 -->
+    <string name="main_title">Android 滑动冲突演示</string>
+    <string name="main_subtitle">点击下方卡片查看不同类型的滑动冲突演示及解决方案</string>
+
+    <!-- 场景标题 -->
+    <string name="scene_same_direction_title">同向滑动冲突</string>
+    <string name="scene_opposite_direction_title">反向滑动冲突</string>
+    <string name="scene_mixed_conflict_title">混杂滑动冲突</string>
+
+    <!-- 场景描述 -->
+    <string name="scene_same_direction_desc">垂直 ScrollView 嵌套垂直 RecyclerView\n演示外部拦截法 &amp; 内部拦截法</string>
+    <string name="scene_opposite_direction_desc">垂直 ScrollView 嵌套水平 ViewPager2\n演示方向判断法</string>
+    <string name="scene_mixed_conflict_desc">三层嵌套：垂直 → 水平 → 垂直\n演示多层级协调方案</string>
+
+    <!-- 模式选择器（Scene 1） -->
+    <string name="mode_selector_title">选择解决方式</string>
+    <string name="mode_conflict">冲突状态</string>
+    <string name="mode_external_intercept">外部拦截法</string>
+    <string name="mode_internal_intercept">内部拦截法</string>
+
+    <!-- 开关标签 -->
+    <string name="toggle_label">解决方案开关</string>
+    <string name="toggle_solution_enabled">✓ 解决方案已启用 — 滑动应流畅无冲突</string>
+    <string name="toggle_solution_disabled">✗ 冲突状态 — 尝试滑动内部视图，体验冲突</string>
+
+    <!-- 场景 1：同向冲突 说明文本 -->
+    <string name="instruction_same_direction_conflict">【冲突状态】\nScrollView 的 onInterceptTouchEvent() 检测到垂直滑动后直接拦截，内层 RecyclerView 永远收不到事件。\n\n→ 尝试滑动内层 RecyclerView，你会发现它无法滑动。</string>
+    <string name="instruction_same_direction_external">【外部拦截法】\n父容器（SameDirectionScrollView）在 onInterceptTouchEvent() 中：\n1. 检查 RecyclerView.canScrollVertically() \n2. 子视图可滑 → 不拦截\n3. 子视图到达边界 → 拦截，ScrollView 接管\n\n→ 关键代码在父容器中，子视图无需修改。</string>
+    <string name="instruction_same_direction_internal">【内部拦截法】\n子视图（SmartRecyclerView）在 dispatchTouchEvent() 中：\n1. ACTION_DOWN 时调用 parent.requestDisallowInterceptTouchEvent(true)\n2. 当自身到达边界时调用 parent.requestDisallowInterceptTouchEvent(false)\n\n→ 关键代码在子视图中，由子视图决定何时交给父容器。</string>
+
+    <!-- 场景 2：反向冲突 说明文本 -->
+    <string name="instruction_opposite_direction_conflict">【冲突状态】\nScrollView 在检测到任何垂直偏移后都会拦截，即使用户主要是在水平滑动。\n\n→ 尝试左右滑动 ViewPager2 切换页面，可能被外层 ScrollView 干扰。</string>
+    <string name="instruction_opposite_direction_resolved">【方向判断法（外部拦截法变体）】\n在 onInterceptTouchEvent() 中比较 |dx| 和 |dy|：\n• |dx| > |dy| → 水平滑动 → 不拦截 → ViewPager2 处理\n• |dy| > |dx| → 垂直滑动 → 拦截 → ScrollView 处理\n\n→ 根据主要滑动方向路由事件，确保各视图正确响应。</string>
+
+    <!-- 场景 3：混杂冲突 说明文本 -->
+    <string name="instruction_mixed_conflict_conflict">【冲突状态（三层嵌套）】\n第一层（垂直 ScrollView）拦截所有垂直事件：\n• 第二层水平 ScrollView：可能可以水平滑动\n• 第三层 RecyclerView：完全无法垂直滑动\n\n→ 尝试在不同层级上滑动，体验多层冲突。</string>
+    <string name="instruction_mixed_conflict_resolved">【多层级协调方案】\n每层只处理自己方向的滑动：\n• 第一层：垂直滑动 + 检查内层 RV 是否可滑\n• 第二层：水平滑动 + 不干扰垂直事件\n• 第三层：RecyclerView 正常处理垂直滑动\n\n→ 综合运用方向判断 + 子视图状态检查。</string>
+
+    <!-- 通用状态文本 -->
+    <string name="instruction_conflict_state">当前处于冲突状态，尝试滑动内部视图，体验滑动冲突问题</string>
+    <string name="instruction_resolved_state">当前已启用解决方案，滑动应该流畅无冲突</string>
+
+    <!-- 视图区域标签 -->
+    <string name="label_outer_scrollview">外层 ScrollView 区域</string>
+    <string name="label_inner_recyclerview">内层 RecyclerView 区域（垂直滑动 ↕）</string>
+    <string name="label_outer_scrollview_vertical">外层 ScrollView 区域（垂直滑动 ↕）</string>
+    <string name="label_inner_viewpager_horizontal">内层 ViewPager2 区域（水平滑动 ↔）</string>
+    <string name="label_level_1_scrollview">第一层：外层 ScrollView（垂直 ↕）</string>
+    <string name="label_level_2_horizontal">第二层：水平 ScrollView（水平 ↔）</string>
+    <string name="label_level_3_recyclerview">第三层：RecyclerView（垂直 ↕）</string>
+    <string name="label_level_3_recyclerview_1">列表 A（垂直 ↕）</string>
+    <string name="label_level_3_recyclerview_2">列表 B（垂直 ↕）</string>
+    <string name="label_level_3_recyclerview_3">列表 C（垂直 ↕）</string>
+
+    <!-- 描述文本 -->
+    <string name="desc_outer_content">这是外层 ScrollView 的内容。向上滑动可以看到更多内容。</string>
+    <string name="desc_bottom_content">外层 ScrollView 底部内容</string>
+    <string name="desc_same_direction_bottom">继续向下滑动可以看到这些内容。\n\n如果解决方案生效，你应该能够：\n1. 在 RecyclerView 区域内上下滑动列表\n2. 当列表到达顶部/底部边界时，外层 ScrollView 自动接管滑动</string>
+    <string name="desc_opposite_direction_bottom">继续向下滑动可以看到这些内容。\n\n如果解决方案生效，你应该能够：\n1. 在 ViewPager2 区域内左右滑动切换页面\n2. 在任意区域上下滑动滚动外层内容</string>
+    <string name="desc_mixed_conflict_bottom">继续向下滑动可以看到这些内容。\n\n如果解决方案生效，你应该能够：\n1. 在 RecyclerView 内垂直滑动列表\n2. 水平滑动切换不同的列表卡片\n3. 当内层列表到达边界时，外层 ScrollView 接管</string>
+    <string name="desc_level_1_content">这是最外层的垂直滑动区域。</string>
+
+    <!-- 按钮文本 -->
+    <string name="button_view_demo">查看演示</string>
+
+    <!-- RecyclerView / ViewPager 格式文本 -->
+    <string name="item_text_format">列表项 #%d</string>
+    <string name="page_text_format">页面 %d</string>
+</resources>
