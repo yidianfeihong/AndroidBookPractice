@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="属性动画（Property Animation）\n\n✅ 真正改变 View 的属性值！\n平移后点击事件跟着走。这是补间动画最大的区别。"
+        android:textSize="14sp"
+        android:layout_marginBottom="12dp" />
+
+    <View
+        android:id="@+id/targetView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/shape_target_box"
+        android:layout_marginBottom="16dp" />
+
+    <!-- 实时显示 ValueAnimator 的值 -->
+    <TextView
+        android:id="@+id/tvValue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ValueAnimator 当前值：0"
+        android:textSize="16sp"
+        android:layout_marginBottom="12dp" />
+
+    <Button android:id="@+id/btnValueAnimator" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="ValueAnimator（值动画）" />
+
+    <Button android:id="@+id/btnObjectAnimator" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="ObjectAnimator（对象动画）" />
+
+    <Button android:id="@+id/btnAnimatorSet" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="AnimatorSet（组合动画）" />
+
+    <Button android:id="@+id/btnColorAnimator" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="颜色渐变动画" />
+
+    <Button android:id="@+id/btnReset" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="重置" />
+
+</LinearLayout>

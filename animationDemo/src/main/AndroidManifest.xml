@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="动画体系教学"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+
+        <!-- 主入口：动画类型导航页 -->
+        <activity
+            android:name=".AnimationMainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 补间动画（View Animation） -->
+        <activity android:name=".TweenAnimationActivity" android:label="补间动画" />
+
+        <!-- 属性动画（Property Animation） -->
+        <activity android:name=".PropertyAnimationActivity" android:label="属性动画" />
+
+        <!-- 插值器演示 -->
+        <activity android:name=".InterpolatorActivity" android:label="插值器" />
+
+        <!-- ViewPropertyAnimator -->
+        <activity android:name=".ViewPropertyAnimatorActivity" android:label="ViewPropertyAnimator" />
+
+        <!-- 帧动画 -->
+        <activity android:name=".FrameAnimationActivity" android:label="帧动画" />
+
+        <!-- 布局动画 -->
+        <activity android:name=".LayoutTransitionActivity" android:label="布局动画" />
+
+        <!-- 转场动画 -->
+        <activity android:name=".TransitionActivity" android:label="转场动画" />
+        <activity android:name=".TransitionTargetActivity" android:label="转场目标页" />
+
+    </application>
+
+</manifest>

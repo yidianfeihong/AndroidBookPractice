@@ -12,6 +12,10 @@
             android:name=".SecondActivity"
             android:exported="false" />
         <activity
+            android:name=".Navigation3Activity"
+            android:exported="false"
+            android:label="Navigation3 Demo" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ViewPropertyAnimator\n\nview.animate() 是属性动画的简便写法。\n内部就是 ObjectAnimator，但链式调用更简洁。\n适合简单的单个 View 动画。"
+        android:textSize="14sp"
+        android:layout_marginBottom="12dp" />
+
+    <View
+        android:id="@+id/targetView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/shape_target_box"
+        android:layout_marginBottom="24dp" />
+
+    <Button android:id="@+id/btnSimple" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="简单平移" />
+
+    <Button android:id="@+id/btnChain" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="链式组合（平移+旋转+透明度）" />
+
+    <Button android:id="@+id/btnWithListener" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="带监听器" />
+
+    <Button android:id="@+id/btnBy" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="By 方法（相对当前值）" />
+
+    <Button android:id="@+id/btnReset" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="重置" />
+
+</LinearLayout>

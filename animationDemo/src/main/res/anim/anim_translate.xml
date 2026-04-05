@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 补间动画 - 平移动画：向右平移自身宽度 -->
+<translate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fromXDelta="0"
+    android:toXDelta="100%"
+    android:fromYDelta="0"
+    android:toYDelta="0"
+    android:duration="1000"
+    android:fillAfter="true" />

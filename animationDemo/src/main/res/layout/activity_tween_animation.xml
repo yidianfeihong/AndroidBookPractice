@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="补间动画（View Animation）\n\n⚠️ 注意：补间动画只改变 View 的绘制位置，不改变实际属性！\n点击平移后的方块，点击事件仍在原位置。"
+        android:textSize="14sp"
+        android:layout_marginBottom="12dp" />
+
+    <!-- 动画目标 View -->
+    <View
+        android:id="@+id/targetView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/shape_target_box"
+        android:layout_marginBottom="24dp" />
+
+    <Button android:id="@+id/btnAlpha" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="透明度动画（Alpha）" />
+
+    <Button android:id="@+id/btnScale" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="缩放动画（Scale）" />
+
+    <Button android:id="@+id/btnRotate" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="旋转动画（Rotate）" />
+
+    <Button android:id="@+id/btnTranslate" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="平移动画（Translate）" />
+
+    <Button android:id="@+id/btnSet" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="组合动画（Set）" />
+
+    <Button android:id="@+id/btnCodeAnim" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="纯代码方式创建" />
+
+    <Button android:id="@+id/btnReset" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="重置" />
+
+</LinearLayout>

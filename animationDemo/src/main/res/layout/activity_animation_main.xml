@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Android 动画体系教学"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp" />
+
+        <Button android:id="@+id/btnTween" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="1. 补间动画（View Animation）" android:layout_marginBottom="8dp" />
+
+        <Button android:id="@+id/btnProperty" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="2. 属性动画（Property Animation）" android:layout_marginBottom="8dp" />
+
+        <Button android:id="@+id/btnInterpolator" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="3. 插值器（Interpolator）" android:layout_marginBottom="8dp" />
+
+        <Button android:id="@+id/btnViewPropertyAnimator" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="4. ViewPropertyAnimator" android:layout_marginBottom="8dp" />
+
+        <Button android:id="@+id/btnFrame" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="5. 帧动画（Frame Animation）" android:layout_marginBottom="8dp" />
+
+        <Button android:id="@+id/btnLayoutTransition" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="6. 布局动画（LayoutTransition）" android:layout_marginBottom="8dp" />
+
+        <Button android:id="@+id/btnTransition" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="7. 转场动画（Activity Transition）" android:layout_marginBottom="8dp" />
+
+    </LinearLayout>
+</ScrollView>

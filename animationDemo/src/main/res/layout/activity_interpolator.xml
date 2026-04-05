@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="插值器（Interpolator）\n\n插值器决定动画的速度曲线。\n同样的动画时长，不同插值器效果完全不同。\n点击按钮后观察方块平移速度的变化。"
+        android:textSize="14sp"
+        android:layout_marginBottom="12dp" />
+
+    <View
+        android:id="@+id/targetView"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/shape_target_box"
+        android:layout_marginBottom="16dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button android:id="@+id/btnLinear" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="Linear（匀速）" />
+            <Button android:id="@+id/btnAccelerate" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="Accelerate（加速）" />
+            <Button android:id="@+id/btnDecelerate" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="Decelerate（减速）" />
+            <Button android:id="@+id/btnAccelerateDecelerate" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="AccelerateDecelerate（先加速后减速）" />
+            <Button android:id="@+id/btnOvershoot" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="Overshoot（超出后回弹）" />
+            <Button android:id="@+id/btnAnticipate" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="Anticipate（先回退再前进）" />
+            <Button android:id="@+id/btnBounce" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="Bounce（弹跳）" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

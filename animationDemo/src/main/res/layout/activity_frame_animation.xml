@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="帧动画（Frame Animation）\n\n像 GIF 一样，逐帧切换图片。\n⚠️ 注意：图片多/大时容易 OOM！"
+        android:textSize="14sp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- 帧动画的载体 -->
+    <ImageView
+        android:id="@+id/ivFrame"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/frame_animation"
+        android:layout_marginBottom="24dp" />
+
+    <Button android:id="@+id/btnStart" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="播放" />
+
+    <Button android:id="@+id/btnStop" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="停止" />
+
+    <Button android:id="@+id/btnOneShot" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="播放一次（oneshot）" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CCCCCC"
+        android:layout_marginVertical="16dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="代码方式创建帧动画（addFrame）"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp" />
+
+    <ImageView
+        android:id="@+id/ivFrameCode"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginBottom="16dp" />
+
+    <Button android:id="@+id/btnCodeStart" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="代码创建 + 播放" />
+
+    <Button android:id="@+id/btnCodeStop" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="停止" />
+
+</LinearLayout>

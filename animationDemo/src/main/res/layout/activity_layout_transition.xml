@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="布局动画（LayoutTransition）\n\n当容器内子 View 添加/移除时自动播放动画。\n四种动画类型：\n• APPEARING：新 View 出现\n• DISAPPEARING：View 消失\n• CHANGE_APPEARING：因新 View 出现而移动的其他 View\n• CHANGE_DISAPPEARING：因 View 消失而移动的其他 View"
+        android:textSize="14sp"
+        android:layout_marginBottom="12dp" />
+
+    <Button android:id="@+id/btnAdd" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="添加一个 View" />
+
+    <Button android:id="@+id/btnRemove" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="移除最后一个 View" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!-- animateLayoutChanges 是最简单的开启方式 -->
+        <LinearLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:animateLayoutChanges="true" />
+
+    </ScrollView>
+</LinearLayout>
